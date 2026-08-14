@@ -53,18 +53,26 @@ pipeline {
     post {
 
         always {
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'allure-results']]
+            ])
+        }
+
+        failure {
             archiveArtifacts(
                 artifacts: 'screenshots/**/*',
                 allowEmptyArchive: true
             )
+
+            echo 'Automation tests failed'
         }
 
         success {
             echo 'Automation tests passed'
-        }
-
-        failure {
-            echo 'Automation tests failed'
         }
     }
 
