@@ -45,4 +45,12 @@ pipeline {
             echo 'Automation tests failed'
         }
     }
+
+    environment {
+    PLATFORM_NAME = 'Android'
+    AUTOMATION_NAME = 'UiAutomator2'
+    DEVICE_NAME = 'emulator-5554'
+    APP_PACKAGE = 'YOUR_PACKAGE'
+    APP_ACTIVITY = 'YOUR_ACTIVITY'
+}
 }
