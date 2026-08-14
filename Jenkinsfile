@@ -36,6 +36,17 @@ pipeline {
                 sh 'npx wdio run wdio.conf.ts'
             }
         }
+        stage('Check Android Environment') {
+            steps {
+                sh '''
+                    echo "ANDROID_HOME=$ANDROID_HOME"
+                    echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+
+                    adb version
+                    adb devices
+                '''
+            }
+        }
 
     }
 
@@ -63,5 +74,9 @@ pipeline {
     DEVICE_NAME = 'emulator-5554'
     APP_PACKAGE = 'com.wdiodemoapp'
     APP_ACTIVITY = '.MainActivity'
+    ANDROID_HOME = '/Users/navisnaab/Library/Android/sdk'
+    ANDROID_SDK_ROOT = '/Users/navisnaab/Library/Android/sdk'
+
+    PATH = "/Users/navisnaab/Library/Android/sdk/platform-tools:/Users/navisnaab/Library/Android/sdk/emulator:${env.PATH}"
 }
 }
