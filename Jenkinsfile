@@ -19,7 +19,18 @@ pipeline {
                 sh 'npm ci'
             }
         }
+        stage('Setup Appium') {
+            steps {
+                sh '''
+                    npx appium --version
+                    npx appium driver list --installed
 
+                    npx appium driver install uiautomator2 || true
+
+                    npx appium driver list --installed
+                '''
+            }
+        }
         stage('Run Tests') {
             steps {
                 sh 'npx wdio run wdio.conf.ts'
